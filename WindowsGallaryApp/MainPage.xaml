@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="WindowsGallaryApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WindowsGallaryApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!--
+        <controls:NumberBox PlaceholderText="25" KeyDown="NumberBox_KeyDown" x:Name="MyNumberBox">
+
+        </controls:NumberBox>
+
+        <controls:ColorPicker>
+        </controls:ColorPicker>
+
+        <controls:TeachingTip Title="TeachingTip" Subtitle="Subtitle" x:Name="MyTeachingTip" 
+                              Target="{x:Bind MyNumberBox}">
+
+        </controls:TeachingTip>
+        -->
+    <FlipView MaxWidth="400" Height="270">
+        <Image Source="ms-appx:///Assets/Media/cliff.jpg" AutomationProperties.Name="Cliff"/>
+        <Image Source="ms-appx:///Assets/Media/grapes.jpg" AutomationProperties.Name="Grapes"/>
+        <Image Source="ms-appx:///Assets/Media/rainier.jpg" AutomationProperties.Name="Rainier"/>
+        <Image Source="ms-appx:///Assets/Media/sunset.jpg" AutomationProperties.Name="Sunset"/>
+        <Image Source="ms-appx:///Assets/Media/valley.jpg" AutomationProperties.Name="Valley"/>
+     </FlipView>
+
+</Page>
