@@ -123,6 +123,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\CustomImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -142,6 +143,7 @@
     <Content Include="Assets\Media\LandscapeImage6.jpg" />
     <Content Include="Assets\Media\LandscapeImage7.jpg" />
     <Content Include="Assets\Media\LandscapeImage8.jpg" />
+    <None Include="Assets\Media\Media.csv" />
     <Content Include="Assets\Media\rainier.jpg" />
     <Content Include="Assets\Media\sunset.jpg" />
     <Content Include="Assets\Media\treetops.jpg" />

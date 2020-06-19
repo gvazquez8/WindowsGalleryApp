@@ -6,27 +6,70 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:data="using:WindowsGallaryApp.Scripts"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <!--
-        <controls:NumberBox PlaceholderText="25" KeyDown="NumberBox_KeyDown" x:Name="MyNumberBox">
 
-        </controls:NumberBox>
+    <Page.Resources>
+        <CollectionViewSource x:Name="ImagesCVS" />
+        <DataTemplate x:Key="ImageTemplate" x:DataType="data:CustomImage">
+            <Image Stretch="UniformToFill" Source="{x:Bind ImageLocation}"
+                   Width="190" Height="130" />
+        </DataTemplate>
+    </Page.Resources>
 
-        <controls:ColorPicker>
-        </controls:ColorPicker>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!-- Define Grid Structure (Rows & Columns) -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
 
-        <controls:TeachingTip Title="TeachingTip" Subtitle="Subtitle" x:Name="MyTeachingTip" 
-                              Target="{x:Bind MyNumberBox}">
+        <!-- Hamburger Button -->
+        <Button Style="{StaticResource PaneToggleButtonStyle}"
+                Grid.Row="0" Grid.Column="0"
+                Padding="3" />
 
-        </controls:TeachingTip>
-        -->
-    <FlipView MaxWidth="400" Height="270">
-        <Image Source="ms-appx:///Assets/Media/cliff.jpg" AutomationProperties.Name="Cliff"/>
-        <Image Source="ms-appx:///Assets/Media/grapes.jpg" AutomationProperties.Name="Grapes"/>
-        <Image Source="ms-appx:///Assets/Media/rainier.jpg" AutomationProperties.Name="Rainier"/>
-        <Image Source="ms-appx:///Assets/Media/sunset.jpg" AutomationProperties.Name="Sunset"/>
-        <Image Source="ms-appx:///Assets/Media/valley.jpg" AutomationProperties.Name="Valley"/>
-     </FlipView>
+        <!-- Title Text -->
+        <TextBlock x:Name="GalleryTitleText"
+                   Grid.Row="0" Grid.Column="1"
+                   Text="Image Gallery"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   VerticalAlignment="Center" 
+                   Margin="10,0,0,0"/>
+
+        <!-- Image Gallery View -->
+        <GridView x:Name="ImageGridView" 
+                  Grid.Row="1" Grid.Column="1"
+                  ItemTemplate="{StaticResource ImageTemplate}"
+                  x:DefaultBindMode="OneWay"
+                  ItemsSource="{x:Bind ImagesCVS.View}"
+                  IsItemClickEnabled="False"
+                  SelectionMode="None"/>
+
+        <!-- Navigation Buttons -->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2" Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Spacing="100">
+            <Button x:Name="PagerBackButton"
+                    Style="{StaticResource NavigationBackButtonNormalStyle}"
+                    Click="PagerBackButton_Click"
+                    IsEnabled="False"/>
+            <Button x:Name="PagerForwardButton"
+                    Style="{StaticResource NavigationBackButtonNormalStyle}"
+                    RenderTransformOrigin="0.5,0.5"
+                    Click="PagerForwardButton_Click">
+                <Button.RenderTransform>
+                    <CompositeTransform Rotation="180"/>
+                </Button.RenderTransform>
+            </Button>
+        </StackPanel>
+    </Grid>
 
 </Page>
