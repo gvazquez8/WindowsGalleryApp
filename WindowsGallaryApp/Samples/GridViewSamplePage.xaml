@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="WindowsGallaryApp.Samples.GridViewSamplePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WindowsGallaryApp.Samples"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="using:WindowsGallaryApp.Scripts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local1="using:WindowsGallaryApp"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="imagesCVS" />
+        <DataTemplate x:Key="ImageTemplate" x:DataType="data:CustomImage">
+            <Image Stretch="UniformToFill" Source="{x:Bind ImageLocation}"
+                   Width="190" Height="130" />
+        </DataTemplate>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!-- Define Grid Structure (Rows & Columns) -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!-- Title Text -->
+        <TextBlock x:Name="GalleryTitleText"
+                   Grid.Row="0"
+                   Text="Image Gallery - GridView"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   VerticalAlignment="Center" 
+                   Margin="10,0,0,5"/>
+
+        <!-- Image Gallery View -->
+        <GridView x:Name="ImageGridView" 
+                  Grid.Row="1"
+                  ItemTemplate="{StaticResource ImageTemplate}"
+                  x:DefaultBindMode="OneWay"
+                  ItemsSource="{x:Bind imagesCVS.View}"
+                  IsItemClickEnabled="False"
+                  SelectionMode="None">
+            <GridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition/>
+                    <EntranceThemeTransition/>
+                    <ContentThemeTransition/>
+                    <ReorderThemeTransition/>
+                </TransitionCollection>
+            </GridView.ItemContainerTransitions>
+        </GridView>
+
+        <data:Pager Grid.Row="2" HorizontalAlignment="Center"
+                    Maximum="10" Minimum="1"
+                    SmallChange="1" LargeChange="5"
+                    IndexChanged="GridPager_IndexChanged"
+                    DisplayMode="ComboBox"/>
+    </Grid>
+    
+</Page>

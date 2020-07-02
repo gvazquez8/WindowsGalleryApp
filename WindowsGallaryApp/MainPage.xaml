@@ -6,70 +6,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    xmlns:data="using:WindowsGallaryApp.Scripts"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <CollectionViewSource x:Name="ImagesCVS" />
-        <DataTemplate x:Key="ImageTemplate" x:DataType="data:CustomImage">
-            <Image Stretch="UniformToFill" Source="{x:Bind ImageLocation}"
-                   Width="190" Height="130" />
-        </DataTemplate>
-    </Page.Resources>
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <!-- Define Grid Structure (Rows & Columns) -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
-
-        <!-- Hamburger Button -->
-        <Button Style="{StaticResource PaneToggleButtonStyle}"
-                Grid.Row="0" Grid.Column="0"
-                Padding="3" />
-
-        <!-- Title Text -->
-        <TextBlock x:Name="GalleryTitleText"
-                   Grid.Row="0" Grid.Column="1"
-                   Text="Image Gallery"
-                   Style="{ThemeResource TitleTextBlockStyle}"
-                   VerticalAlignment="Center" 
-                   Margin="10,0,0,0"/>
-
-        <!-- Image Gallery View -->
-        <GridView x:Name="ImageGridView" 
-                  Grid.Row="1" Grid.Column="1"
-                  ItemTemplate="{StaticResource ImageTemplate}"
-                  x:DefaultBindMode="OneWay"
-                  ItemsSource="{x:Bind ImagesCVS.View}"
-                  IsItemClickEnabled="False"
-                  SelectionMode="None"/>
-
-        <!-- Navigation Buttons -->
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="2" Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    Spacing="100">
-            <Button x:Name="PagerBackButton"
-                    Style="{StaticResource NavigationBackButtonNormalStyle}"
-                    Click="PagerBackButton_Click"
-                    IsEnabled="False"/>
-            <Button x:Name="PagerForwardButton"
-                    Style="{StaticResource NavigationBackButtonNormalStyle}"
-                    RenderTransformOrigin="0.5,0.5"
-                    Click="PagerForwardButton_Click">
-                <Button.RenderTransform>
-                    <CompositeTransform Rotation="180"/>
-                </Button.RenderTransform>
-            </Button>
-        </StackPanel>
-    </Grid>
+    <controls:NavigationView x:Name="navBar"
+                             SelectionChanged="NavigationView_SelectionChanged"
+                             IsBackButtonVisible="Collapsed"
+                             IsPaneOpen="False">
+        <!-- Menu Items -->
+        <controls:NavigationView.MenuItems>
+            <controls:NavigationViewItem Icon="Home" Content="Home" Tag="StartPage" />
+            <controls:NavigationViewItem Icon="Play" Content="GridView Sample" Tag="GridViewSamplePage" />
+            <controls:NavigationViewItem Icon="Play" Content="ListView Sample" Tag="ListViewSamplePage" />
+            <controls:NavigationViewItem Icon="Play" Content="ItemsRepeater Sample" Tag="ItemsRepeaterSamplePage" />
+            <controls:NavigationViewItem Icon="Play" Content="DataGrid Sample" Tag="DataGridSamplePage" />
+        </controls:NavigationView.MenuItems>
+        <Frame x:Name="contentFrame">
+            <Frame.ContentTransitions>
+                <NavigationThemeTransition/>
+            </Frame.ContentTransitions>
+        </Frame>
+    </controls:NavigationView>
 
 </Page>

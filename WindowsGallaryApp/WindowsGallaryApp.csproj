@@ -122,8 +122,33 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\IntToStrConverter.cs" />
+    <Compile Include="Scripts\DefaultElementAnimator.cs" />
+    <Compile Include="Scripts\Int32ToDoubleConverter.cs" />
+    <Compile Include="Scripts\Pager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\DataGridSamplePage.xaml.cs">
+      <DependentUpon>DataGridSamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GridViewSamplePage.xaml.cs">
+      <DependentUpon>GridViewSamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\ItemsRepeaterSamplePage.xaml.cs">
+      <DependentUpon>ItemsRepeaterSamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\ListViewSamplePage.xaml.cs">
+      <DependentUpon>ListViewSamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\CustomImage.cs" />
+    <Compile Include="Scripts\Pager.Methods.cs" />
+    <Compile Include="Scripts\Pager.Properties.cs" />
+    <Compile Include="Scripts\PagerRoutedEventArgs.cs" />
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -131,7 +156,14 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Media\cliff.jpg" />
+    <Content Include="Assets\Icons\Ellipsis.png" />
+    <Content Include="Assets\Icons\FirstButton.png" />
+    <Content Include="Assets\Icons\LastButton.png" />
+    <Content Include="Assets\Icons\NextButton.png" />
+    <Content Include="Assets\Icons\PreviousButton.png" />
+    <Content Include="Assets\Media\cliff.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Media\fishes.wmv" />
     <Content Include="Assets\Media\grapes.jpg" />
     <Content Include="Assets\Media\ladybug.wmv" />
@@ -164,10 +196,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\DataGridSamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GridViewSamplePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\ItemsRepeaterSamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\ListViewSamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\StartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
+      <Version>7.0.0-preview1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.5.0-prerelease.200609001</Version>

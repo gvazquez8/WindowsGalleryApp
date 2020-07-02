@@ -1,0 +1,69 @@
+﻿<Page
+    x:Class="WindowsGallaryApp.Samples.ListViewSamplePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WindowsGallaryApp.Samples"
+    xmlns:data="using:WindowsGallaryApp.Scripts"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local1="using:WindowsGallaryApp"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="imagesCVS" />
+        <DataTemplate x:Key="ImageListTemplate" x:DataType="data:CustomImage">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{x:Bind ImageLocation}" Grid.Column="0" MaxWidth="150" />
+                <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                    <TextBlock Text="{x:Bind Title}" />
+                    <TextBlock Text="{x:Bind ImageLocation}"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+ 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!-- Define Grid Structure (Rows & Columns) -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!-- Title Text -->
+        <TextBlock x:Name="GalleryTitleText"
+                   Grid.Row="0"
+                   Text="Image Gallery - ListView"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   VerticalAlignment="Center" 
+                   Margin="10,0,0,5"/>
+
+        <!-- Image Gallery ListView -->
+        <ListView x:Name="ImageListView" 
+                  Grid.Row="1"
+                  ItemTemplate="{StaticResource ImageListTemplate}"
+                  x:DefaultBindMode="OneWay"
+                  ItemsSource="{x:Bind imagesCVS.View}"
+                  IsItemClickEnabled="False"
+                  SelectionMode="None">
+            <ListView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition/>
+                    <EntranceThemeTransition/>
+                    <ContentThemeTransition/>
+                    <ReorderThemeTransition/>
+                </TransitionCollection>
+            </ListView.ItemContainerTransitions>
+        </ListView>
+
+        <data:Pager Grid.Row="2" HorizontalAlignment="Center"
+                      Minimum="1" Maximum="10"
+                      SmallChange="1" LargeChange="5"
+                      IndexChanged="Pager_IndexChanged"/>
+    </Grid>
+
+</Page>
