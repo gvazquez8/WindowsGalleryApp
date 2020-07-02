@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -40,6 +41,18 @@ namespace WindowsGallaryApp.Scripts
         {
             _CB_PreviousPageButton.IsEnabled = CurrentIndex+1 != Minimum;
             _CB_ForwardPageButton.IsEnabled  = CurrentIndex+1 != Maximum;
+        }
+
+        private void OnButtonPanelButtonClick(object sender, RoutedEventArgs e)
+        {
+            CurrentIndex = _ButtonPanelItems.GetElementIndex((UIElement)sender);
+            double middleOffset = (CurrentIndex*_ButtonPanel_ButtonWidth); 
+            _ButtonPanelView.ChangeView(middleOffset, 0,1);
+        }
+        private void AdjustButtonPanelView(object sender, RoutedEventArgs args)
+        {
+            _ButtonPanel_ButtonWidth = ((Button)sender).ActualWidth + ((StackLayout)_ButtonPanelItems.Layout).Spacing;
+            _ButtonPanelView.MaxWidth = EllipseMaxBefore * _ButtonPanel_ButtonWidth;
         }
     }
 }

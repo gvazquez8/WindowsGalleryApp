@@ -92,14 +92,14 @@ namespace WindowsGallaryApp.Scripts
             set { SetValue(EllipseMaxBeforeProperty, value); }
         }
         public static readonly DependencyProperty EllipseMaxBeforeProperty =
-            DependencyProperty.Register("EllipseMaxBefore", typeof(int), typeof(Pager), new PropertyMetadata(0));
+            DependencyProperty.Register("EllipseMaxBefore", typeof(int), typeof(Pager), new PropertyMetadata(5));
         public int EllipseMaxAfter
         {
             get { return (int)GetValue(EllipseMaxAfterProperty); }
             set { SetValue(EllipseMaxAfterProperty, value); }
         }
         public static readonly DependencyProperty EllipseMaxAfterProperty =
-            DependencyProperty.Register("EllipseMaxAfter", typeof(int), typeof(Pager), new PropertyMetadata(0));
+            DependencyProperty.Register("EllipseMaxAfter", typeof(int), typeof(Pager), new PropertyMetadata(1));
 
 
 

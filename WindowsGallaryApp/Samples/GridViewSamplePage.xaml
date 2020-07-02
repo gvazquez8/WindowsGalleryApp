@@ -55,7 +55,7 @@
                     Maximum="10" Minimum="1"
                     SmallChange="1" LargeChange="5"
                     IndexChanged="GridPager_IndexChanged"
-                    DisplayMode="ComboBox"/>
+                    DisplayMode="ButtonPanel"/>
     </Grid>
     
 </Page>

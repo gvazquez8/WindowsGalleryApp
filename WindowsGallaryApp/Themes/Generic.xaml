@@ -7,7 +7,7 @@
     <local:Int32ToDoubleConverter x:Key="IntToDouble"/>
     <local:IntToStrConverter x:Key="IntToStr"/>
     <DataTemplate x:Key="IntToButton">
-        <Button Content="{Binding}"/>
+        <Button Content="{Binding}" MinWidth="35"/>
     </DataTemplate>
 
     <Style TargetType="local:Pager" >
@@ -62,7 +62,7 @@
                                         Visibility="Collapsed">
                                 <Button x:Name="CB_PreviousPageButton"
                                         Style="{StaticResource NavigationBackButtonNormalStyle}"
-                                        IsEnabled="False"/>
+                                        IsEnabled="False"   />
                                 <TextBlock VerticalAlignment="Center" Margin="0,0,5,0"
                                            Text="{TemplateBinding PagePrefixText}" />
                                 <ComboBox x:Name="PageComboBox" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -89,9 +89,12 @@
                                 <Button x:Name="BP_PreviousPageButton"
                                         Style="{StaticResource NavigationBackButtonNormalStyle}"
                                         IsEnabled="False"/>
-                                <ScrollViewer HorizontalScrollMode="Enabled" VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Auto">
-                                    <controls:ItemsRepeater 
-                                    ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PagerTemplateSettings.Indices}"
+                                <ScrollViewer x:Name="ButtonPanelViewer"
+                                              HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"
+                                              VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled"
+                                              >
+                                    <controls:ItemsRepeater x:Name="ButtonPanelItemsRepeater"
+                                        ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PagerTemplateSettings.Indices}"
                                         ItemTemplate="{StaticResource IntToButton}">
                                         <controls:ItemsRepeater.Layout>
                                             <controls:StackLayout Orientation="Horizontal" Spacing="5"/>
@@ -106,6 +109,7 @@
                                     </Button.RenderTransform>
                                 </Button>
                             </StackPanel>
+                            
                         </Grid>
                     </Border>
                 </ControlTemplate>

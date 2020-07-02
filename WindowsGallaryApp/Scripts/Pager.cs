@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +26,9 @@ namespace WindowsGallaryApp.Scripts
                             _BP_ForwardPageButton, _BP_PreviousPageButton;
         private NumberBox   _PageNumberBox;
         private ComboBox    _PageComboBox;
+        private Windows.UI.Xaml.Controls.ScrollViewer _ButtonPanelView;
+        private ItemsRepeater _ButtonPanelItems;
+        private double _ButtonPanel_ButtonWidth;
 
         public event EventHandler<PagerRoutedEventArgs> IndexChanged;
         public Pager()
@@ -63,12 +67,21 @@ namespace WindowsGallaryApp.Scripts
         {
             _BP_ForwardPageButton = GetTemplateChild<Button>("BP_ForwardPageButton");
             _BP_PreviousPageButton = GetTemplateChild<Button>("BP_PreviousPageButton");
-            
+            _ButtonPanelView = GetTemplateChild<Windows.UI.Xaml.Controls.ScrollViewer>("ButtonPanelViewer");
+            _ButtonPanelItems = GetTemplateChild<ItemsRepeater>("ButtonPanelItemsRepeater");
 
             _BP_ForwardPageButton.Click += OnForwardButton_Click;
             _BP_PreviousPageButton.Click += OnPreviousButton_Click;
 
+            _ButtonPanelItems.ElementPrepared += ButtonPanelFirstButtonPrepared;
+            _ButtonPanelItems.ElementPrepared += ButtonPanelSetButtonEvents;
         }
+
+        private void ButtonPanelSetButtonEvents(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
+        {
+            ((Button)args.Element).Click += OnButtonPanelButtonClick;
+        }
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -92,6 +105,12 @@ namespace WindowsGallaryApp.Scripts
                 default:
                     break;
             }
+        }
+
+        private void ButtonPanelFirstButtonPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
+        {
+            ((Button)args.Element).Loaded += AdjustButtonPanelView;
+            sender.ElementPrepared -= ButtonPanelFirstButtonPrepared;
         }
     }
 

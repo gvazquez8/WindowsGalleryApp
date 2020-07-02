@@ -25,7 +25,8 @@
             <local1:Pager x:Name="SettingsPager"
                           Grid.Row="1"
                           Maximum="100" Minimum="1"
-                          DisplayMode="ButtonPanel"/>
+                          DisplayMode="ButtonPanel"
+                          EllipseMaxBefore="7"/>
         </StackPanel>
 
     </Grid>
