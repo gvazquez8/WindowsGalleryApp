@@ -7,7 +7,8 @@
     <local:Int32ToDoubleConverter x:Key="IntToDouble"/>
     <local:IntToStrConverter x:Key="IntToStr"/>
     <DataTemplate x:Key="IntToButton">
-        <Button Content="{Binding}" MinWidth="35"/>
+        <Button Content="{Binding}" MinWidth="35"
+                Background="White"/>
     </DataTemplate>
 
     <Style TargetType="local:Pager" >
@@ -23,18 +24,18 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <!--NumberBox Display-->
-                            <StackPanel x:Name="NumberBoxDisplayPanel"
+
+                            <StackPanel x:Name="PagerDisplayPanel"
                                         Orientation="Horizontal"
                                         Spacing="{TemplateBinding Spacing}"
-                                        Grid.Row="0"
-                                        Visibility="Collapsed">
-                                <Button x:Name="NB_PreviousPageButton"
+                                        Grid.Row="0">
+                                <Button x:Name="PreviousPageButton"
                                         Style="{StaticResource NavigationBackButtonNormalStyle}"
                                         IsEnabled="False"/>
-                                <TextBlock VerticalAlignment="Center" Margin="0,0,5,0"
-                                           Text="{TemplateBinding PagePrefixText}" />
-                                <controls:NumberBox x:Name="PageNumberBox"
+                                <StackPanel x:Name="BoxPanels" Visibility="Collapsed" Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Margin="0,0,5,0" Text="{TemplateBinding PagePrefixText}" />
+                                    <!--NumberBox Display-->
+                                    <controls:NumberBox x:Name="PageNumberBox"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
                                                     Maximum="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IntToDouble}, Path=Maximum}"
@@ -43,65 +44,34 @@
                                                     SmallChange="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IntToDouble}, Path=SmallChange}"
                                                     LargeChange="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IntToDouble}, Path=LargeChange}"
                                                     IsEnabled="False"
-                                                    />
-                                <TextBlock VerticalAlignment="Center" Margin="5,0,5,0" Text="of"/>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IntToStr}, Path=Maximum}"/>
-                                <Button x:Name="NB_ForwardPageButton"
-                                        Style="{StaticResource NavigationBackButtonNormalStyle}"
-                                        RenderTransformOrigin="0.5,0.5">
-                                    <Button.RenderTransform>
-                                        <CompositeTransform Rotation="180"/>
-                                    </Button.RenderTransform>
-                                </Button>
-                            </StackPanel>
-                            <!--ComboBox Display-->
-                            <StackPanel x:Name="ComboBoxDisplayPanel"
-                                        Orientation="Horizontal"
-                                        Spacing="{TemplateBinding Spacing}"
-                                        Grid.Row="0"
-                                        Visibility="Collapsed">
-                                <Button x:Name="CB_PreviousPageButton"
-                                        Style="{StaticResource NavigationBackButtonNormalStyle}"
-                                        IsEnabled="False"   />
-                                <TextBlock VerticalAlignment="Center" Margin="0,0,5,0"
-                                           Text="{TemplateBinding PagePrefixText}" />
-                                <ComboBox x:Name="PageComboBox" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Visibility="Collapsed" />
+                                    <!--ComboBox Display-->
+                                    <ComboBox x:Name="PageComboBox"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"
                                           SelectedIndex="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CurrentIndex, Mode=TwoWay}"
                                           ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PagerTemplateSettings.Indices}"
-                                          IsEnabled="False"/>
-                                <TextBlock VerticalAlignment="Center" Margin="5,0,5,0" Text="of"/>
-                                <TextBlock VerticalAlignment="Center"
-                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IntToStr}, Path=Maximum}"/>
-                                <Button x:Name="CB_ForwardPageButton"
-                                        Style="{StaticResource NavigationBackButtonNormalStyle}"
-                                        RenderTransformOrigin="0.5,0.5">
-                                    <Button.RenderTransform>
-                                        <CompositeTransform Rotation="180"/>
-                                    </Button.RenderTransform>
-                                </Button>
-                            </StackPanel>
-                            <!--ButtonPanel Display-->
-                            <StackPanel x:Name="ButtonPanelDisplay"
+                                          IsEnabled="False"
+                                          Visibility="Collapsed"/>
+                                    <TextBlock VerticalAlignment="Center" Margin="5,0,5,0" Text="of"/>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IntToStr}, Path=Maximum}"/>
+                                </StackPanel>
+                                <StackPanel x:Name="ButtonPanelDisplay"
                                         Orientation="Horizontal"
                                         Spacing="{TemplateBinding Spacing}"
-                                        Grid.Row="0"
                                         Visibility="Collapsed">
-                                <Button x:Name="BP_PreviousPageButton"
-                                        Style="{StaticResource NavigationBackButtonNormalStyle}"
-                                        IsEnabled="False"/>
-                                <ScrollViewer x:Name="ButtonPanelViewer"
+                                    <ScrollViewer x:Name="ButtonPanelViewer"
                                               HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"
-                                              VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled"
-                                              >
-                                    <controls:ItemsRepeater x:Name="ButtonPanelItemsRepeater"
+                                              VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" >
+                                        <controls:ItemsRepeater x:Name="ButtonPanelItemsRepeater"
                                         ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PagerTemplateSettings.Indices}"
-                                        ItemTemplate="{StaticResource IntToButton}">
-                                        <controls:ItemsRepeater.Layout>
-                                            <controls:StackLayout Orientation="Horizontal" Spacing="5"/>
-                                        </controls:ItemsRepeater.Layout>
-                                    </controls:ItemsRepeater>
-                                </ScrollViewer>
-                                <Button x:Name="BP_ForwardPageButton"
+                                        ItemTemplate="{StaticResource IntToButton}" >
+                                            <controls:ItemsRepeater.Layout>
+                                                <controls:StackLayout Orientation="Horizontal" Spacing="5"/>
+                                            </controls:ItemsRepeater.Layout>
+                                        </controls:ItemsRepeater>
+                                    </ScrollViewer>
+                                </StackPanel>
+                                <Button x:Name="NextPageButton"
                                         Style="{StaticResource NavigationBackButtonNormalStyle}"
                                         RenderTransformOrigin="0.5,0.5">
                                     <Button.RenderTransform>
@@ -109,7 +79,6 @@
                                     </Button.RenderTransform>
                                 </Button>
                             </StackPanel>
-                            
                         </Grid>
                     </Border>
                 </ControlTemplate>

@@ -12,7 +12,8 @@
     <controls:NavigationView x:Name="navBar"
                              SelectionChanged="NavigationView_SelectionChanged"
                              IsBackButtonVisible="Collapsed"
-                             IsPaneOpen="False">
+                             IsPaneOpen="False"
+                             IsSettingsVisible="False">
         <!-- Menu Items -->
         <controls:NavigationView.MenuItems>
             <controls:NavigationViewItem Icon="Home" Content="Home" Tag="StartPage" />

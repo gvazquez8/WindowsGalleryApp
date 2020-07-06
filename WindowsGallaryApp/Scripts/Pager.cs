@@ -21,9 +21,7 @@ namespace WindowsGallaryApp.Scripts
     {
         public enum DisplayModes { NumberBox, ComboBox, ButtonPanel }
 
-        private Button      _NB_ForwardPageButton, _NB_PreviousPageButton,
-                            _CB_ForwardPageButton, _CB_PreviousPageButton,
-                            _BP_ForwardPageButton, _BP_PreviousPageButton;
+        private Button      _PreviousPageButton, _NextPageButton;
         private NumberBox   _PageNumberBox;
         private ComboBox    _PageComboBox;
         private Windows.UI.Xaml.Controls.ScrollViewer _ButtonPanelView;
@@ -38,40 +36,21 @@ namespace WindowsGallaryApp.Scripts
         }
 
         public void ApplyNumberBoxTemplate() {
-            _NB_ForwardPageButton = GetTemplateChild<Button>("NB_ForwardPageButton");
-            _NB_PreviousPageButton = GetTemplateChild<Button>("NB_PreviousPageButton");
+
             _PageNumberBox = GetTemplateChild<NumberBox>("PageNumberBox");
-
-            _NB_ForwardPageButton.Click += OnForwardButton_Click;
-            _NB_PreviousPageButton.Click += OnPreviousButton_Click;
             _PageNumberBox.ValueChanged += OnNumberBoxValueChanged;
-
-            _PageNumberBox.ValueChanged += (s, args) => IndexChanged?.Invoke(s, new PagerRoutedEventArgs(CurrentIndex+1));
         }
 
         public void ApplyComboBoxTemplate()
         {
-            _CB_ForwardPageButton = GetTemplateChild<Button>("CB_ForwardPageButton");
-            _CB_PreviousPageButton = GetTemplateChild<Button>("CB_PreviousPageButton");
             _PageComboBox = GetTemplateChild<ComboBox>("PageComboBox");
-
-            _CB_ForwardPageButton.Click += OnForwardButton_Click;
-            _CB_PreviousPageButton.Click += OnPreviousButton_Click;
             _PageComboBox.SelectionChanged += OnComboBoxSelectionChanged;
-
-            _PageComboBox.SelectionChanged += (s, args) => IndexChanged?.Invoke(s, new PagerRoutedEventArgs(CurrentIndex+1));
-
         }
 
         private void ApplyButtonPanelTemplate()
         {
-            _BP_ForwardPageButton = GetTemplateChild<Button>("BP_ForwardPageButton");
-            _BP_PreviousPageButton = GetTemplateChild<Button>("BP_PreviousPageButton");
             _ButtonPanelView = GetTemplateChild<Windows.UI.Xaml.Controls.ScrollViewer>("ButtonPanelViewer");
             _ButtonPanelItems = GetTemplateChild<ItemsRepeater>("ButtonPanelItemsRepeater");
-
-            _BP_ForwardPageButton.Click += OnForwardButton_Click;
-            _BP_PreviousPageButton.Click += OnPreviousButton_Click;
 
             _ButtonPanelItems.ElementPrepared += ButtonPanelFirstButtonPrepared;
             _ButtonPanelItems.ElementPrepared += ButtonPanelSetButtonEvents;
@@ -80,11 +59,20 @@ namespace WindowsGallaryApp.Scripts
         private void ButtonPanelSetButtonEvents(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
         {
             ((Button)args.Element).Click += OnButtonPanelButtonClick;
+            ((Button)args.Element).GotFocus += OnButtonPanelButtonGotFocus;
+            ((Button)args.Element).LostFocus += OnButtonPanelButtonLostFocus;
+            ((Button)args.Element).Click += (s, e) => { IndexChanged?.Invoke(s, new PagerRoutedEventArgs(CurrentIndex + 1)); };
         }
 
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+
+            _PreviousPageButton = GetTemplateChild<Button>("PreviousPageButton");
+            _NextPageButton = GetTemplateChild<Button>("NextPageButton");
+            _PreviousPageButton.Click += OnPreviousButton_Click;
+            _NextPageButton.Click += OnNextButton_Click;
+
             ApplyNumberBoxTemplate();
             ApplyComboBoxTemplate();
             ApplyButtonPanelTemplate();
@@ -93,11 +81,15 @@ namespace WindowsGallaryApp.Scripts
             {
                 case DisplayModes.NumberBox:
                     _PageNumberBox.IsEnabled = true;
-                    GetTemplateChild<StackPanel>("NumberBoxDisplayPanel").Visibility = Visibility.Visible;
+                    _PageNumberBox.ValueChanged += (s, args) => IndexChanged?.Invoke(s, new PagerRoutedEventArgs(CurrentIndex + 1));
+                    GetTemplateChild<StackPanel>("BoxPanels").Visibility = Visibility.Visible;
+                    _PageNumberBox.Visibility = Visibility.Visible;
                     break;
                 case DisplayModes.ComboBox:
                     _PageComboBox.IsEnabled = true;
-                    GetTemplateChild<StackPanel>("ComboBoxDisplayPanel").Visibility = Visibility.Visible;
+                    _PageComboBox.SelectionChanged += (s, args) => IndexChanged?.Invoke(s, new PagerRoutedEventArgs(CurrentIndex + 1));
+                    GetTemplateChild<StackPanel>("BoxPanels").Visibility = Visibility.Visible;
+                    _PageComboBox.Visibility = Visibility.Visible;
                     break;
                 case DisplayModes.ButtonPanel:
                     GetTemplateChild<StackPanel>("ButtonPanelDisplay").Visibility = Visibility.Visible;
@@ -109,7 +101,7 @@ namespace WindowsGallaryApp.Scripts
 
         private void ButtonPanelFirstButtonPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
         {
-            ((Button)args.Element).Loaded += AdjustButtonPanelView;
+            ((Button)args.Element).Loaded += SetButtonPanelView;
             sender.ElementPrepared -= ButtonPanelFirstButtonPrepared;
         }
     }

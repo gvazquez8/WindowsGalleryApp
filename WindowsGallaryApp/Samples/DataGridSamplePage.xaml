@@ -35,6 +35,7 @@
         <data:Pager Grid.Row="2" HorizontalAlignment="Center"
                       Minimum="1" Maximum="10"
                       SmallChange="1" LargeChange="5"
-                      IndexChanged="Pager_IndexChanged"/>
+                      IndexChanged="Pager_IndexChanged"
+                      DisplayMode="NumberBox"/>
     </Grid>
 </Page>
