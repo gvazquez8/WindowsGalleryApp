@@ -39,6 +39,7 @@ namespace WindowsGallaryApp.Scripts
 
             _PageNumberBox = GetTemplateChild<NumberBox>("PageNumberBox");
             _PageNumberBox.ValueChanged += OnNumberBoxValueChanged;
+            _PageNumberBox.ValueChanged += (s, args) => IndexChanged?.Invoke(s, new PagerRoutedEventArgs(CurrentIndex + 1));
         }
 
         public void ApplyComboBoxTemplate()
@@ -81,7 +82,6 @@ namespace WindowsGallaryApp.Scripts
             {
                 case DisplayModes.NumberBox:
                     _PageNumberBox.IsEnabled = true;
-                    _PageNumberBox.ValueChanged += (s, args) => IndexChanged?.Invoke(s, new PagerRoutedEventArgs(CurrentIndex + 1));
                     GetTemplateChild<StackPanel>("BoxPanels").Visibility = Visibility.Visible;
                     _PageNumberBox.Visibility = Visibility.Visible;
                     break;

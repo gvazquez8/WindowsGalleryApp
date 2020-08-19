@@ -89,7 +89,7 @@ namespace WindowsGallaryApp.Scripts
         private void TryDisablePageButtons()
         {
             _PreviousPageButton.IsEnabled = CurrentIndex + 1 != Minimum;
-            _NextPageButton.IsEnabled = CurrentIndex + 1 != Maximum;
+            _NextPageButton.IsEnabled = CurrentIndex +1 != Maximum;
         }
 
         private void SetButtonPanelView(object sender, RoutedEventArgs args)
@@ -100,7 +100,7 @@ namespace WindowsGallaryApp.Scripts
 
         private void OnButtonPanelButtonGotFocus(object sender, RoutedEventArgs args)
         {
-            ((Button)sender).Background = new SolidColorBrush(Colors.LightYellow);
+            ((Button)sender).Background = new SolidColorBrush(Colors.Green);
         }
 
         private void OnButtonPanelButtonLostFocus(object sender, RoutedEventArgs args)

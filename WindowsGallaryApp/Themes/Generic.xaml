@@ -8,7 +8,8 @@
     <local:IntToStrConverter x:Key="IntToStr"/>
     <DataTemplate x:Key="IntToButton">
         <Button Content="{Binding}" MinWidth="35"
-                Background="White"/>
+                Background="White"
+                Foreground="Black"/>
     </DataTemplate>
 
     <Style TargetType="local:Pager" >
@@ -64,7 +65,7 @@
                                               VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" >
                                         <controls:ItemsRepeater x:Name="ButtonPanelItemsRepeater"
                                         ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PagerTemplateSettings.Indices}"
-                                        ItemTemplate="{StaticResource IntToButton}" >
+                                        ItemTemplate="{StaticResource IntToButton}">
                                             <controls:ItemsRepeater.Layout>
                                                 <controls:StackLayout Orientation="Horizontal" Spacing="5"/>
                                             </controls:ItemsRepeater.Layout>
