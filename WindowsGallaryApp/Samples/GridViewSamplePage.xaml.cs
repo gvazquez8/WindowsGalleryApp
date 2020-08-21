@@ -21,34 +21,58 @@ namespace WindowsGallaryApp.Samples
 {
     public sealed partial class GridViewSamplePage : Page
     {
-        private List<CustomImage> imageList = CustomImage.GetImages(120);
-        private int imagesPerPage = 12;
+        private List<CustomImage> imageList = new List<CustomImage>();
+        private int imagesPerPage = 48;
 
         public GridViewSamplePage()
         {
             this.InitializeComponent();
             imagesCVS.Source = new ObservableCollection<CustomImage>();
-            UpdateGrid();
+            Loaded += ListViewSamplePage_Loaded;
         }
 
-        private void UpdateGrid(int pageIndex = 0)
+        private async void ListViewSamplePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            imageList = await CustomImage.GenerateImages();
+            MyPager.NumberOfPages = (int)Math.Ceiling((double)imageList.Count / imagesPerPage);
+            UpdateCollection();
+        }
+
+        private void UpdateCollection(int pageIndex = 0)
         {
             List<CustomImage> images = GetPageImages(pageIndex);
             ((ObservableCollection<CustomImage>)imagesCVS.Source)?.Clear();
             foreach (CustomImage c in images)
             {
-                ((ObservableCollection<CustomImage>)imagesCVS.Source).Add(c);
+                ((ObservableCollection<CustomImage>)imagesCVS.Source)?.Add(c);
             };
         }
 
         private List<CustomImage> GetPageImages(int pageIndex)
         {
+            if ((pageIndex + 1) * imagesPerPage > imageList.Count)
+            {
+                return imageList.GetRange(pageIndex * imagesPerPage, imageList.Count - (pageIndex * imagesPerPage));
+            }
+
             return imageList.GetRange(pageIndex * imagesPerPage, imagesPerPage);
         }
 
-        private void GridPager_IndexChanged(object sender, PagerRoutedEventArgs args)
+        private void Pager_PageChanged(Pager sender, PageChangedEventArgs args)
         {
-            UpdateGrid(args.NewIndex);
+            if (imageList.Count == 0)
+            {
+                return;
+            }
+
+            UpdateCollection(args.CurrentPage);
+        }
+
+        private void AddMoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            imageList.AddRange(imageList);
+
+            MyPager.NumberOfPages = (int)Math.Ceiling((double)imageList.Count / imagesPerPage);
         }
     }
 }

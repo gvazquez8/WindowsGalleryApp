@@ -122,9 +122,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\IntToStrConverter.cs" />
     <Compile Include="Scripts\DefaultElementAnimator.cs" />
-    <Compile Include="Scripts\Int32ToDoubleConverter.cs" />
     <Compile Include="Scripts\Pager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Samples\DataGridSamplePage.xaml.cs">
@@ -143,12 +141,10 @@
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Scripts\CustomImage.cs" />
-    <Compile Include="Scripts\Pager.Methods.cs" />
+    <Compile Include="Scripts\Pager.Events.cs" />
     <Compile Include="Scripts\Pager.Properties.cs" />
-    <Compile Include="Scripts\PagerRoutedEventArgs.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Scripts\PageChangedEventArgs.cs" />
+    <Compile Include="Scripts\PagerElementFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -156,36 +152,151 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icons\Ellipsis.png" />
-    <Content Include="Assets\Icons\FirstButton.png" />
-    <Content Include="Assets\Icons\LastButton.png" />
-    <Content Include="Assets\Icons\NextButton.png" />
-    <Content Include="Assets\Icons\PreviousButton.png" />
-    <Content Include="Assets\Media\cliff.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Media\fishes.wmv" />
-    <Content Include="Assets\Media\grapes.jpg" />
-    <Content Include="Assets\Media\ladybug.wmv" />
-    <Content Include="Assets\Media\LandscapeImage1.jpg" />
-    <Content Include="Assets\Media\LandscapeImage2.jpg" />
-    <Content Include="Assets\Media\LandscapeImage3.jpg" />
-    <Content Include="Assets\Media\LandscapeImage4.jpg" />
-    <Content Include="Assets\Media\LandscapeImage5.jpg" />
-    <Content Include="Assets\Media\LandscapeImage6.jpg" />
-    <Content Include="Assets\Media\LandscapeImage7.jpg" />
-    <Content Include="Assets\Media\LandscapeImage8.jpg" />
-    <None Include="Assets\Media\Media.csv" />
-    <Content Include="Assets\Media\rainier.jpg" />
-    <Content Include="Assets\Media\sunset.jpg" />
-    <Content Include="Assets\Media\treetops.jpg" />
-    <Content Include="Assets\Media\valley.jpg" />
+    <Content Include="Assets\3pears-1323727.jpg" />
+    <Content Include="Assets\a-branch-of-flowers-1641742.jpg" />
+    <Content Include="Assets\a-set-of-bugambilia-flower-1641740.jpg" />
+    <Content Include="Assets\alpine-climbing-1405845.jpg" />
+    <Content Include="Assets\apples-1324784.jpg" />
+    <Content Include="Assets\autumn-1-1382513.jpg" />
+    <Content Include="Assets\autumn-2-1382506.jpg" />
+    <Content Include="Assets\balloon-contest-1417733.jpg" />
+    <Content Include="Assets\barcalona-airport-arrival-1240880.jpg" />
+    <Content Include="Assets\bay-lrt-station-1626400.jpg" />
+    <Content Include="Assets\bed-post-1530404.jpg" />
+    <Content Include="Assets\black-fly-1641767.jpg" />
+    <Content Include="Assets\black-jaguar-1402097.jpg" />
+    <Content Include="Assets\blank-sign-bullet-holes-1447150.jpg" />
+    <Content Include="Assets\blue-water-sailing-1-1437302.jpg" />
+    <Content Include="Assets\bluebells-2007-1374105.jpg" />
+    <Content Include="Assets\broken-wall-1641738.jpg" />
+    <Content Include="Assets\bugambilia-close-up-1641758.jpg" />
+    <Content Include="Assets\bugambilia-fuchsia-1641739.jpg" />
+    <Content Include="Assets\burning-tree-1377053.jpg" />
+    <Content Include="Assets\butterfly-on-a-flower-1641762.jpg" />
+    <Content Include="Assets\cantaloupes-leaves-1641741.jpg" />
+    <Content Include="Assets\cantera-texture-1641756.jpg" />
+    <Content Include="Assets\cat-1364386.jpg" />
+    <Content Include="Assets\cat-cartoon-art-1641753.png" />
+    <Content Include="Assets\cat-yoga-1640067.jpg" />
+    <Content Include="Assets\cat-yoga-2-1640068.jpg" />
+    <Content Include="Assets\cemetery-1404186.jpg" />
+    <Content Include="Assets\champagne-with-citron-1325320.jpg" />
+    <Content Include="Assets\chicken-breast-with-kimchi-1640070.jpg" />
+    <Content Include="Assets\chopped-wood-in-forest-sky-and-trees-1641726.jpg" />
+    <Content Include="Assets\close-squirrel-1381764.jpg" />
+    <Content Include="Assets\close-up-macro-of-kiwi-fruit-1641725.jpg" />
+    <Content Include="Assets\close-up-pine-cone-macro-1641724.jpg" />
+    <Content Include="Assets\clouds-1371838.jpg" />
+    <Content Include="Assets\coffee-1559191.jpg" />
+    <Content Include="Assets\coloured-paper-1421280.jpg" />
+    <Content Include="Assets\coming-home-1371162.jpg" />
+    <Content Include="Assets\cow-1380252.jpg" />
+    <Content Include="Assets\daisy-s-1375598.jpg" />
+    <Content Include="Assets\dandelion-37-1388001.jpg" />
+    <Content Include="Assets\deer-in-wild-1641752.jpg" />
+    <Content Include="Assets\double-bass-1423720.jpg" />
+    <Content Include="Assets\dragon-fly-1391358.jpg" />
+    <Content Include="Assets\dragonfly-1641761.jpg" />
+    <Content Include="Assets\dragonfly-on-a-leaf-1641769.jpg" />
+    <Content Include="Assets\droplets-1395002.jpg" />
+    <Content Include="Assets\eagle-1523807.jpg" />
+    <Content Include="Assets\eggs-oranges-5-1546938.jpg" />
+    <Content Include="Assets\elk-on-the-tundra-in-the-rocky-mountains-1640110.jpg" />
+    <Content Include="Assets\escalante-2-1391686.jpg" />
+    <Content Include="Assets\fall-leaves-1641772.jpg" />
+    <Content Include="Assets\falloxbow-1058032.jpg" />
+    <Content Include="Assets\fields-1-1370990.jpg" />
+    <Content Include="Assets\flower-1372780.jpg" />
+    <Content Include="Assets\flower-1641763.jpg" />
+    <Content Include="Assets\flower-1641764.jpg" />
+    <Content Include="Assets\flower-1641765.jpg" />
+    <Content Include="Assets\fox-1522156.jpg" />
+    <Content Include="Assets\french-desert-6-1400167.jpg" />
+    <Content Include="Assets\frog-1371919.jpg" />
+    <Content Include="Assets\fruit-in-the-country-3-1323660.jpg" />
+    <Content Include="Assets\giants-above-clouds-1640102.jpg" />
+    <Content Include="Assets\grass-1379193.jpg" />
+    <Content Include="Assets\grass-texture-1641755.jpg" />
+    <Content Include="Assets\green-fly-on-a-leaf-1641768.jpg" />
+    <Content Include="Assets\headed-down-1400175.jpg" />
+    <Content Include="Assets\hidden-cat-1641759.jpg" />
+    <Content Include="Assets\hide-and-seek-1436876.jpg" />
+    <Content Include="Assets\horse-1393073.jpg" />
+    <Content Include="Assets\hunter-s-bend-1316926.jpg" />
+    <Content Include="Assets\indian-heads-1391201.jpg" />
+    <Content Include="Assets\irish-landscape-1393571.jpg" />
+    <Content Include="Assets\jack-o-lanterns-1326113.jpg" />
+    <Content Include="Assets\japanese-food-1327425.jpg" />
+    <Content Include="Assets\jetty-at-lysterfield-lake-1640074.jpg" />
+    <Content Include="Assets\kiwi-fruit-macros-1313905.jpg" />
+    <Content Include="Assets\koldalen-4-1384902.jpg" />
+    <Content Include="Assets\ladybird-1367182.jpg" />
+    <Content Include="Assets\large-pumpkin-1387927.jpg" />
+    <Content Include="Assets\lighted-gift-2-1420395.jpg" />
+    <Content Include="Assets\lighthouse-fish-1311421.jpg" />
+    <Content Include="Assets\lomo-spider-1386711.jpg" />
+    <Content Include="Assets\lotus-1641760.jpg" />
+    <Content Include="Assets\lrt-interior-1626389.jpg" />
+    <Content Include="Assets\maia-2-1436576.jpg" />
+    <Content Include="Assets\marble-1641757.jpg" />
+    <Content Include="Assets\mediterranean-food-1311330.jpg" />
+    <Content Include="Assets\milky-droplet-2-1190386.jpg" />
+    <Content Include="Assets\mitze-1380778.jpg" />
+    <Content Include="Assets\montenegro-sky-1370598.jpg" />
+    <Content Include="Assets\mosque-1641766.jpg" />
+    <Content Include="Assets\multicolor-drop-2-1056473.jpg" />
+    <Content Include="Assets\my-beloved-mountains-2-1375135.jpg" />
+    <Content Include="Assets\my-puppy-maggie-1362787.jpg" />
+    <Content Include="Assets\natural-wonders-1400924.jpg" />
+    <Content Include="Assets\NewFolder\GridView.png" />
+    <Content Include="Assets\NewFolder\ListView.png" />
+    <Content Include="Assets\night-fog-1521028.jpg" />
+    <Content Include="Assets\on-the-road-7-1384791.jpg" />
+    <Content Include="Assets\orange-portocaliu-1518994.jpg" />
+    <Content Include="Assets\oranges-on-a-tree-1325109.jpg" />
+    <Content Include="Assets\palm-and-pier-1390929.jpg" />
+    <Content Include="Assets\pastry-dish-1514928.jpg" />
+    <Content Include="Assets\philippine-coins-1483943.jpg" />
+    <Content Include="Assets\pink-heart-of-stone-1316358.jpg" />
+    <Content Include="Assets\puesta-de-sol-1641754.jpg" />
+    <Content Include="Assets\puppies-1-1308839.jpg" />
+    <Content Include="Assets\red-fox-1640100.jpg" />
+    <Content Include="Assets\red-tulip-2-1401227.jpg" />
+    <Content Include="Assets\road-to-nowhere-1383109.jpg" />
+    <Content Include="Assets\rocks-on-the-footpath-1640077.jpg" />
+    <Content Include="Assets\salat-tomato-cheese-on-bread-1322759.jpg" />
+    <Content Include="Assets\sky-1390196.jpg" />
+    <Content Include="Assets\skyscrapers-1219500.jpg" />
+    <Content Include="Assets\spilled-milk-1326993.jpg" />
+    <Content Include="Assets\still-life-1325648.jpg" />
+    <Content Include="Assets\sunflowers-3-1393020.jpg" />
+    <Content Include="Assets\sunset-at-lake-lysterfield-1640073.jpg" />
+    <Content Include="Assets\sunset-at-lake-lysterfield-1640082.jpg" />
+    <Content Include="Assets\sunset-at-lake-lysterfield-1640083.jpg" />
+    <Content Include="Assets\sunset-at-lake-lysterfield-1640086.jpg" />
+    <Content Include="Assets\sunset-at-lake-lysterfield-1640090.jpg" />
+    <Content Include="Assets\sunset-at-lake-lysterfield-1640093.jpg" />
+    <Content Include="Assets\sunshine-1408040.jpg" />
+    <Content Include="Assets\surf-3-1378236.jpg" />
+    <Content Include="Assets\swirling-smoke-1641747.jpg" />
+    <Content Include="Assets\tate-weather-project-8-1473995.jpg" />
+    <Content Include="Assets\the-home-of-the-candle-1-1425911.jpg" />
+    <Content Include="Assets\three-gondoliers-and-a-duck-1391336.jpg" />
+    <Content Include="Assets\tractor-2-1386664.jpg" />
+    <Content Include="Assets\tractor-3-1386656.jpg" />
+    <Content Include="Assets\tulips-1400882.jpg" />
+    <Content Include="Assets\tulips-1531279.jpg" />
+    <Content Include="Assets\vale-da-lua-2-1401161.jpg" />
+    <Content Include="Assets\vikingland-1316664.jpg" />
+    <Content Include="Assets\volcanic-mt-ngauruhoe-1378772.jpg" />
+    <Content Include="Assets\water-lilly-1368676.jpg" />
+    <Content Include="Assets\weigela-1640066.jpg" />
+    <Content Include="Assets\wild-flowers-1628445.jpg" />
+    <Content Include="Assets\wild-poppies-1384853.jpg" />
+    <Content Include="Assets\yellow-beetle-1366999.jpg" />
+    <Content Include="Assets\yellowstone-river-1361768.jpg" />
+    <Content Include="Assets\young-and-old-1399297.jpg" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -213,10 +324,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\StartPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

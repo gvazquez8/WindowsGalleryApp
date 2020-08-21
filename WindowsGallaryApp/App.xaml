@@ -3,8 +3,18 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WindowsGallaryApp">
-    
+
     <Application.Resources>
-        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+            <x:Double x:Key="NumberPanelButtonWidth">32</x:Double>
+            <Style x:Key="NumberPanelButtonStyle" TargetType="Button">
+                <Setter Property="MinWidth" Value="{StaticResource NumberPanelButtonWidth}"/>
+                <Setter Property="MinHeight" Value="20"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

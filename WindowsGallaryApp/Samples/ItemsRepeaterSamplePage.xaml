@@ -13,8 +13,7 @@
     <Page.Resources>
         <CollectionViewSource x:Name="imagesCVS" />
         <DataTemplate x:Key="ImageTemplate" x:DataType="data:CustomImage">
-            <Image Stretch="UniformToFill" Source="{x:Bind ImageLocation}"
-                   Width="190" Height="130" />
+            <Image Stretch="UniformToFill" Source="{x:Bind ImageLocation}" />
         </DataTemplate>
     </Page.Resources>
 
@@ -36,20 +35,15 @@
         <!-- Image Gallery View -->
         <ScrollViewer Grid.Row="1">
             <controls:ItemsRepeater x:Name="ImageRepeater" 
-                  ItemTemplate="{StaticResource ImageTemplate}">
+                  ItemTemplate="{StaticResource ImageTemplate}"
+                    ItemsSource="{x:Bind imagesCVS.View}">
                 <controls:ItemsRepeater.Layout>
-                    <controls:UniformGridLayout MinColumnSpacing="2" MinRowSpacing="2"/>
+                    <controls:UniformGridLayout MinColumnSpacing="2" MinRowSpacing="2" ItemsStretch="Uniform" ItemsJustification="Start" MinItemWidth="190" MinItemHeight="130"/>
                 </controls:ItemsRepeater.Layout>
-                <controls:ItemsRepeater.Animator>
-                    <data:DefaultElementAnimator/>
-                </controls:ItemsRepeater.Animator>
             </controls:ItemsRepeater>
         </ScrollViewer>
 
-        <data:Pager Grid.Row="2" HorizontalAlignment="Center"
-                    Minimum="1" Maximum="10"
-                    SmallChange="1" LargeChange="5"
-                    IndexChanged="Pager_IndexChanged"
-                    DisplayMode="ButtonPanel"/>
+        <data:Pager x:Name="MyPager" Grid.Row="2" PageChanged="Pager_PageChanged" PagerDisplayMode="NumberBox"/>
+        
     </Grid>
 </Page>

@@ -51,11 +51,10 @@
             </GridView.ItemContainerTransitions>
         </GridView>
 
-        <data:Pager Grid.Row="2" HorizontalAlignment="Center"
-                    Maximum="10" Minimum="1"
-                    SmallChange="1" LargeChange="5"
-                    IndexChanged="GridPager_IndexChanged"
-                    DisplayMode="NumberBox"/>
+
+        <data:Pager x:Name="MyPager" Grid.Row="2" PageChanged="Pager_PageChanged" PagerDisplayMode="Auto"/>
+        <Button x:Name="AddMoreButton" Grid.Row="2" Content="Add lots of images" Click="AddMoreButton_Click"/>
+
     </Grid>
     
 </Page>

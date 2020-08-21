@@ -16,17 +16,13 @@
                              IsSettingsVisible="False">
         <!-- Menu Items -->
         <controls:NavigationView.MenuItems>
-            <controls:NavigationViewItem Icon="Home" Content="Home" Tag="StartPage" />
-            <controls:NavigationViewItem Icon="Play" Content="GridView Sample" Tag="GridViewSamplePage" />
-            <controls:NavigationViewItem Icon="Play" Content="ListView Sample" Tag="ListViewSamplePage" />
-            <controls:NavigationViewItem Icon="Play" Content="ItemsRepeater Sample" Tag="ItemsRepeaterSamplePage" />
-            <controls:NavigationViewItem Icon="Play" Content="DataGrid Sample" Tag="DataGridSamplePage" />
+            <controls:NavigationViewItem x:Name="GridView" Content="GridView" Tag="GridViewSamplePage" />
+            <controls:NavigationViewItem x:Name="ListView" Content="ListView" Tag="ListViewSamplePage" />
+            <controls:NavigationViewItem x:Name="ItemsRepeater" Content="ItemsRepeater" Tag="ItemsRepeaterSamplePage" />
+            <controls:NavigationViewItem x:Name="DataGrid" Content="DataGrid" Tag="DataGridSamplePage" />
         </controls:NavigationView.MenuItems>
-        <Frame x:Name="contentFrame">
-            <Frame.ContentTransitions>
-                <NavigationThemeTransition/>
-            </Frame.ContentTransitions>
-        </Frame>
+        <Frame x:Name="contentFrame" Margin="20"/>
+
     </controls:NavigationView>
 
 </Page>

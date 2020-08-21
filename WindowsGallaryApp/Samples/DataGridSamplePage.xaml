@@ -30,12 +30,10 @@
                    Style="{ThemeResource TitleTextBlockStyle}"/>
         <controls:DataGrid Grid.Row="1" 
                            ItemsSource="{x:Bind imagesCVS.View, Mode=OneWay}"
-                           AutoGenerateColumns="True" />
+                           AutoGenerateColumns="True"
+                           AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"/>
 
-        <data:Pager Grid.Row="2" HorizontalAlignment="Center"
-                      Minimum="1" Maximum="10"
-                      SmallChange="1" LargeChange="5"
-                      IndexChanged="Pager_IndexChanged"
-                      DisplayMode="ComboBox"/>
+        <data:Pager x:Name="MyPager" Grid.Row="2" PageChanged="Pager_PageChanged" PagerDisplayMode="NumberPanel"/>
+        <Button x:Name="AddMoreButton" Grid.Row="2" Content="Add lots of images" Click="AddMoreButton_Click"/>
     </Grid>
 </Page>

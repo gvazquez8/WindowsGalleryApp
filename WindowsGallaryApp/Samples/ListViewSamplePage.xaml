@@ -20,8 +20,8 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="{x:Bind ImageLocation}" Grid.Column="0" MaxWidth="150" />
                 <StackPanel Grid.Column="1" Margin="12,0,0,0">
-                    <TextBlock Text="{x:Bind Title}" />
-                    <TextBlock Text="{x:Bind ImageLocation}"/>
+                    <TextBlock Text="{x:Bind Title}" Style="{ThemeResource TitleTextBlockStyle}"/>
+                    <TextBlock Text="{x:Bind DateCreated}" Style="{ThemeResource BodyTextBlockStyle}"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -38,9 +38,9 @@
         <TextBlock x:Name="GalleryTitleText"
                    Grid.Row="0"
                    Text="Image Gallery - ListView"
-                   Style="{ThemeResource TitleTextBlockStyle}"
-                   VerticalAlignment="Center" 
-                   Margin="10,0,0,5"/>
+                   Style="{ThemeResource HeaderTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,5"/>
 
         <!-- Image Gallery ListView -->
         <ListView x:Name="ImageListView" 
@@ -60,11 +60,7 @@
             </ListView.ItemContainerTransitions>
         </ListView>
 
-        <data:Pager Grid.Row="2" HorizontalAlignment="Center"
-                    Minimum="1" Maximum="10"
-                    SmallChange="1" LargeChange="5"
-                    IndexChanged="Pager_IndexChanged"
-                    DisplayMode="ComboBox"/>
+        <data:Pager x:Name="MyPager" Grid.Row="2" PageChanged="Pager_PageChanged" PagerDisplayMode="ComboBox"/>
     </Grid>
 
 </Page>

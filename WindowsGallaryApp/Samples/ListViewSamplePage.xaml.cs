@@ -25,17 +25,24 @@ namespace WindowsGallaryApp.Samples
     /// </summary>
     public sealed partial class ListViewSamplePage : Page
     {
-        private List<CustomImage> imageList = CustomImage.GetImages(120);
+        private List<CustomImage> imageList = new List<CustomImage>();
         private int imagesPerPage = 5;
 
         public ListViewSamplePage()
         {
             this.InitializeComponent();
             imagesCVS.Source = new ObservableCollection<CustomImage>();
-            UpdateGrid();
+            Loaded += ListViewSamplePage_Loaded;
         }
 
-        private void UpdateGrid(int pageIndex = 0)
+        private async void ListViewSamplePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            imageList = await CustomImage.GenerateImages();
+            MyPager.NumberOfPages = (int)Math.Ceiling((double)imageList.Count / imagesPerPage);
+            UpdateCollection();
+        }
+
+        private void UpdateCollection(int pageIndex = 0)
         {
             List<CustomImage> images = GetPageImages(pageIndex);
             ((ObservableCollection<CustomImage>)imagesCVS.Source)?.Clear();
@@ -47,12 +54,29 @@ namespace WindowsGallaryApp.Samples
 
         private List<CustomImage> GetPageImages(int pageIndex)
         {
+            if ((pageIndex+1)*imagesPerPage > imageList.Count)
+            {
+                return imageList.GetRange(pageIndex * imagesPerPage, imageList.Count - (pageIndex * imagesPerPage));
+            }
+
             return imageList.GetRange(pageIndex * imagesPerPage, imagesPerPage);
         }
 
-        private void Pager_IndexChanged(object sender, PagerRoutedEventArgs args)
+        // 104 total
+        // page 0 : 30 => 0-29
+        // page 1 : 30 => 30-59
+        // page 2 : 30 => 60-89
+        // page 3 : 14 => 90-104   90-119
+
+
+        private void Pager_PageChanged(Pager sender, PageChangedEventArgs args)
         {
-            UpdateGrid(args.NewIndex);
+            if (imageList.Count == 0)
+            {
+                return;
+            }
+
+            UpdateCollection(args.CurrentPage);
         }
     }
 }
